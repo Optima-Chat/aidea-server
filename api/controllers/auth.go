@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/mylxsw/aidea-server/internal/coins"
+	"github.com/mylxsw/go-utils/array"
 
 	"github.com/Timothylock/go-signin-with-apple/apple"
 	"github.com/hashicorp/go-uuid"
@@ -132,6 +133,24 @@ func (ctl *AuthController) signInOrUpWithSMSCode(ctx context.Context, webCtx web
 	username := strings.TrimSpace(webCtx.Input("username"))
 	if username == "" {
 		return webCtx.JSONError(common.Text(webCtx, ctl.translater, "手机号不能为空"), http.StatusBadRequest)
+	}
+
+	if array.In(username, ctl.conf.UserWhitelist) {
+		// 用户在白名单中，直接返回成功
+		user, err := ctl.userRepo.GetUserByPhone(ctx, username)
+		if err != nil {
+			if err == repo.ErrNotFound {
+				// 用户不存在，注册新用户
+				return ctl.createAccount(ctx, webCtx, username, "", "")
+			}
+
+			log.WithFields(log.Fields{
+				"username": username,
+			}).Errorf("failed to get user: %s", err)
+			return webCtx.JSONError(common.Text(webCtx, ctl.translater, "内部错误，请稍后再试"), http.StatusInternalServerError)
+		}
+
+		return webCtx.JSON(buildUserLoginRes(user, false, ctl.tk))
 	}
 
 	if !isPhoneNumber(username) {
@@ -366,6 +385,14 @@ func (ctl *AuthController) resetPassword(ctx context.Context, webCtx web.Context
 	username := strings.TrimSpace(webCtx.Input("username"))
 	if username == "" {
 		return webCtx.JSONError(common.Text(webCtx, ctl.translater, "用户名不能为空"), http.StatusBadRequest)
+	}
+
+	if array.In(username, ctl.conf.UserWhitelist) {
+		// 用户在白名单中，直接返回成功
+		id, _ := uuid.GenerateUUID()
+		return webCtx.JSON(web.M{
+			"id": id,
+		})
 	}
 
 	if !isEmail(username) && !isPhoneNumber(username) {

@@ -203,3 +203,6 @@ dingding-secret: ""
 enable-alipay: true
 # 启用 Apple 应用内支付功能
 enable-applepay: true
+
+# 白名单
+user-whitelist: [ "13800000001", "13800000002", "13800000003", "13800000004", "13800000005", "13800000006" ]

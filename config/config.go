@@ -141,6 +141,8 @@ type Config struct {
 	// 钉钉通知设置
 	DingDingToken  string `json:"-" yaml:"dingding_token"`
 	DingDingSecret string `json:"-" yaml:"dingding_secret"`
+
+	UserWhitelist []string `json:"user_whitelist" yaml:"user_whitelist"`
 }
 
 type Mail struct {
@@ -289,6 +291,8 @@ func Register(ins *app.App) {
 
 			DingDingToken:  ctx.String("dingding-token"),
 			DingDingSecret: ctx.String("dingding-secret"),
+
+			UserWhitelist: ctx.StringSlice("user-whitelist"),
 		}
 	})
 }

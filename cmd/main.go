@@ -168,6 +168,8 @@ func main() {
 	ins.AddStringFlag("dingding-token", "", "钉钉群通知 Token，留空则不通知")
 	ins.AddStringFlag("dingding-secret", "", "钉钉群通知 Secret")
 
+	ins.AddStringSliceFlag("user-whitelist", []string{}, "用户白名单")
+
 	// 配置文件
 	config.Register(ins)
 
