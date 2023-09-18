@@ -90,7 +90,7 @@ func (ai *XFYunAI) ChatStream(model Model, messages []Message) (<-chan Response,
 	urlStr := ai.assembleAuthURL(host, ai.apiKey, ai.apiSecret)
 	conn, resp, err := ws.Dial(urlStr, nil)
 	if err != nil {
-		return nil, fmt.Errorf("创建 WS 连接失败：%w [%d %s]", urlStr, err, resp.StatusCode, resp.Status)
+		return nil, fmt.Errorf("创建 WS 连接失败：%w [%d %s] %f", err, resp.StatusCode, resp.Status, urlStr)
 	}
 
 	if resp.StatusCode != http.StatusSwitchingProtocols {
