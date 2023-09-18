@@ -45,7 +45,7 @@ func (client *Client) SendVerifyCode(ctx context.Context, verifyCode string, rec
 	case "tencent":
 		return client.tencent.SendSMS(ctx, "1822196", []string{verifyCode}, receiver)
 	case "aliyun":
-		return client.aliyun.SendSMS(ctx, "SMS_287690150", map[string]string{"code": verifyCode}, receiver)
+		return client.aliyun.SendSMS(ctx, "SMS_287645243", map[string]string{"code": verifyCode}, receiver)
 	default:
 		log.Errorf("invalid sms client selected: %s", selectedClient)
 	}
