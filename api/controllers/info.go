@@ -122,19 +122,19 @@ func (ctl *InfoController) Capabilities(webCtx web.Context, client *auth.ClientI
 		"enable_creation_island": true,
 		// 首页模型
 		"home_models": []HomeModel{
-			//{
-			//	Name:    "GPT-3.5",
-			//	ModelID: "gpt-3.5-turbo",
-			//	Desc:    "Fast & Cost-Effective",
-			//	Color:   "FF67AC5C",
-			//},
-			//{
-			//	Name:     "GPT-4",
-			//	ModelID:  "gpt-4",
-			//	Desc:     "Powerful & Precise",
-			//	Color:    "FF714BD7",
-			//	Powerful: true,
-			//},
+			{
+				Name:    "GPT-3.5",
+				ModelID: "gpt-3.5-turbo",
+				Desc:    "Fast & Cost-Effective",
+				Color:   "FF67AC5C",
+			},
+			{
+				Name:     "GPT-4",
+				ModelID:  "gpt-4",
+				Desc:     "Powerful & Precise",
+				Color:    "FF714BD7",
+				Powerful: true,
+			},
 			{
 				Name:     "讯飞星火",
 				ModelID:  "讯飞星火:generalv2",
