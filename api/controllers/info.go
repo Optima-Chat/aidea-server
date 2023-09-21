@@ -48,13 +48,13 @@ var qrCodes = []string{
 func (ctl *InfoController) shareInfo(ctx web.Context, user *auth.UserOptional) web.Response {
 	var res = web.M{
 		"qr_code": qrCodes[rand.Intn(len(qrCodes))],
-		"message": "扫码下载 AIdea，玩转 GPT，实在太有趣啦！",
+		"message": "扫码下载 optima，玩转 GPT，实在太有趣啦！",
 	}
 
 	if user.User != nil {
 		if user.User.InviteCode != "" {
 			res["invite_code"] = user.User.InviteCode
-			res["message"] = fmt.Sprintf("扫码下载 AIdea，用我的专属邀请码 %s 注册，不仅免费用，还有额外奖励！", user.User.InviteCode)
+			res["message"] = fmt.Sprintf("扫码下载 optima，用我的专属邀请码 %s 注册，不仅免费用，还有额外奖励！", user.User.InviteCode)
 		}
 	}
 

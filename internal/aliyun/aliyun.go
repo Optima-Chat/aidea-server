@@ -73,7 +73,7 @@ func (a *Aliyun) SendSMS(ctx context.Context, templateId string, templateParams 
 
 	signNames := make([]string, len(receivers))
 	for i := range receivers {
-		signNames[i] = "AIdea"
+		signNames[i] = "optima"
 	}
 	signNamesJson, _ := json.Marshal(signNames)
 	request.SetSignNameJson(string(signNamesJson))

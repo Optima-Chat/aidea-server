@@ -81,7 +81,7 @@ func BuildMailSendHandler(mailer *mail.Sender, queueRepo *repo.QueueRepo) TaskHa
 			}
 		}()
 
-		if err := mailer.Send(payload.To, fmt.Sprintf("【AIdea】%s", payload.Subject), payload.Body); err != nil {
+		if err := mailer.Send(payload.To, fmt.Sprintf("【optima】%s", payload.Subject), payload.Body); err != nil {
 			log.With(payload).Errorf("send mail failed: %v", err)
 			return err
 		}

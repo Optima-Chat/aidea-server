@@ -148,7 +148,7 @@ apple-secret: /data/webroot/ai-server/etc/apple-key.p8
 
 # 用于邮箱注册、密码找回、邮件通知等
 enable-mail: false
-mail-from: AIdea
+mail-from: optima
 mail-username: ai@example.com
 mail-password: "123456"
 mail-host: smtp.qiye.aliyun.com
