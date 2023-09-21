@@ -135,20 +135,20 @@ func (ctl *InfoController) Capabilities(webCtx web.Context, client *auth.ClientI
 				Color:    "FF714BD7",
 				Powerful: true,
 			},
-			{
-				Name:     "讯飞星火",
-				ModelID:  "讯飞星火:generalv2",
-				Desc:     "Powerful & Precise",
-				Color:    "FF714BD7",
-				Powerful: true,
-			},
-			{
-				Name:     "ChatGLM 2",
-				ModelID:  "文心千帆:model_baidu_chatglm2_6b_32k",
-				Desc:     "Powerful & Precise",
-				Color:    "FF67AC5C",
-				Powerful: false,
-			},
+			// {
+			// 	Name:     "讯飞星火",
+			// 	ModelID:  "讯飞星火:generalv2",
+			// 	Desc:     "Powerful & Precise",
+			// 	Color:    "FF714BD7",
+			// 	Powerful: true,
+			// },
+			// {
+			// 	Name:     "ChatGLM 2",
+			// 	ModelID:  "文心千帆:model_baidu_chatglm2_6b_32k",
+			// 	Desc:     "Powerful & Precise",
+			// 	Color:    "FF67AC5C",
+			// 	Powerful: false,
+			// },
 		},
 	})
 }
