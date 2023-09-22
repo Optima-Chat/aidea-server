@@ -147,6 +147,11 @@ func (ctl *OpenAIController) Chat(ctx context.Context, webCtx web.Context, user 
 		webCtx.JSONError(common.Text(webCtx, ctl.translater, common.ErrInvalidRequest), http.StatusBadRequest).CreateResponse()
 		return
 	}
+	var openReq openai.ChatCompletionRequest
+	if err := webCtx.Unmarshal(&openReq); err != nil {
+		webCtx.JSONError(common.Text(webCtx, ctl.translater, common.ErrInvalidRequest), http.StatusBadRequest).CreateResponse()
+		return
+	}
 
 	quota, err := quotaRepo.GetUserQuota(ctx, user.ID)
 	if err != nil {
@@ -186,6 +191,33 @@ func (ctl *OpenAIController) Chat(ctx context.Context, webCtx web.Context, user 
 		}); err != nil {
 			log.With(req).Errorf("add message failed: %s", err)
 		}
+	}
+
+	// 支持非流式接口，直接返回
+	// function-calling的相关支持
+	// https://platform.openai.com/docs/guides/gpt/function-calling
+	if !openReq.Stream {
+		res, err := ctl.client.CreateChatCompletion(ctx, openReq)
+		if err != nil {
+			log.Errorf("Chat err -- %s -- %v", openReq, err)
+			webCtx.JSONError(common.Text(webCtx, ctl.translater, common.ErrInternalError), http.StatusInternalServerError).CreateResponse()
+			return
+		}
+
+		reqstr, err1 := json.Marshal(openReq)
+		if err1 != nil {
+			log.Errorf("Chat JSON req Marshaling failed: %s", err1)
+		}
+		log.Errorf("Chat JSON req string: %s\n", reqstr)
+
+		resstr, err := json.Marshal(res)
+		if err != nil {
+			log.Errorf("Chat JSON res Marshaling failed: %s", err)
+		}
+		log.Errorf("Chat JSON res string: %s\n", resstr)
+
+		webCtx.JSON(res).CreateResponse()
+		return
 	}
 
 	// log.WithFields(log.Fields{"req": req}).Debugf("chat request")
